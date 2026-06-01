@@ -2,6 +2,7 @@ import { cookies } from "next/headers"
 import NamePicker from "./components/NamePicker"
 import WeekView from "./components/WeekView"
 import WeekTabs from "./components/WeekTabs"
+import Polling from "./components/Polling"
 import { getDefaultWeekOffset } from "../lib/dates"
 
 type Props = {
@@ -27,6 +28,7 @@ export default async function Home({ searchParams }: Props) {
         <h1 className="font-mono font-bold text-2xl">Office Zeit</h1>
         <span className="font-mono text-sm text-gray-500">{person}</span>
       </div>
+      <Polling />
       <WeekTabs activeOffset={weekOffset} />
       <WeekView weekOffset={weekOffset} currentPerson={person} />
     </main>
