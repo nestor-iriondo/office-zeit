@@ -25,7 +25,7 @@ export default async function Home({ searchParams }: Props) {
   return (
     <main className="p-8 flex flex-col gap-8">
       <div className="flex items-center justify-between">
-        <h1 className="font-mono font-bold text-2xl">Office Zeit</h1>
+        <h1 className="font-mono font-bold text-2xl">Wann bist du im Office?</h1>
         <span className="font-mono text-sm text-gray-500">{person}</span>
       </div>
       <Polling />

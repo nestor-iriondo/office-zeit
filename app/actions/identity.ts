@@ -1,16 +1,25 @@
-"use server";
+"use server"
 
-import { cookies } from "next/headers";
-import { redirect } from "next/navigation";
+import { cookies } from "next/headers"
+import { redirect } from "next/navigation"
+import { prisma } from "../../lib/prisma"
 
 export async function setIdentity(formData: FormData) {
-  const person = formData.get("person") as string;
-  if (!person?.trim()) return;
+  const person = (formData.get("person") as string)?.trim()
+  const color = formData.get("color") as string
+  if (!person || !color) return
 
-  const cookieStore = await cookies();
-  cookieStore.set("officeZeitPerson", person.trim(), {
+  await prisma.person.upsert({
+    where: { name: person },
+    update: { color },
+    create: { name: person, color },
+  })
+
+  const cookieStore = await cookies()
+  cookieStore.set("officeZeitPerson", person, {
     httpOnly: true,
-    maxAge: 60 * 60 * 24 * 365, // 1 year
-  });
-  redirect("/");
+    maxAge: 60 * 60 * 24 * 365,
+  })
+
+  redirect("/")
 }

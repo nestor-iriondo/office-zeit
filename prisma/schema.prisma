@@ -7,6 +7,11 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model Person {
+  name  String @id
+  color String
+}
+
 model Presence {
   id        Int      @id @default(autoincrement())
   person    String
