@@ -4,7 +4,7 @@ import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 
 export async function setIdentity(formData: FormData) {
-  const person = formData.get("officeZeitPerson") as string;
+  const person = formData.get("person") as string;
   if (!person?.trim()) return;
 
   const cookieStore = await cookies();
