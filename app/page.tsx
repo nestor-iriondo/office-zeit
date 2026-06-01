@@ -19,7 +19,7 @@ export default async function Home() {
         <h1 className="font-mono font-bold text-2xl">Office Zeit</h1>
         <span className="font-mono text-sm text-gray-500">{person}</span>
       </div>
-      <WeekView weekOffset={weekOffset} />
+      <WeekView weekOffset={weekOffset} currentPerson={person} />
     </main>
   )
 }
