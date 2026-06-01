@@ -2,15 +2,21 @@ import type { WeekDay } from "../../lib/dates"
 import { togglePresence } from "../actions/presence"
 import PersonChip from "./PersonChip"
 
+type Presence = {
+  person: string
+  withDog: boolean
+}
+
 type Props = {
   day: WeekDay
-  presentPersons: string[]
+  presences: Presence[]
   currentPerson: string
   colorMap: Record<string, string>
 }
 
-export default function DayCard({ day, presentPersons, currentPerson, colorMap }: Props) {
-  const isPresent = presentPersons.includes(currentPerson)
+export default function DayCard({ day, presences, currentPerson, colorMap }: Props) {
+  const currentPresence = presences.find((p) => p.person === currentPerson)
+  const isPresent = !!currentPresence
 
   return (
     <form action={togglePresence.bind(null, currentPerson, day.date)} className="flex-1">
@@ -24,15 +30,17 @@ export default function DayCard({ day, presentPersons, currentPerson, colorMap }
         <div className="font-mono text-sm text-gray-500 dark:text-gray-400">{day.date}</div>
 
         <div className="flex flex-wrap gap-1 mt-2 flex-1">
-          {presentPersons.map((person) => (
+          {presences.map(({ person, withDog }) => (
             <PersonChip
               key={person}
               person={person}
               color={colorMap[person] ?? "#e5e7eb"}
+              withDog={withDog}
               dimmed={person !== currentPerson}
             />
           ))}
         </div>
+
       </button>
     </form>
   )

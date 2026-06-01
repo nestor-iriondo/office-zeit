@@ -21,15 +21,15 @@ export default async function WeekView({ weekOffset, currentPerson }: Props) {
   return (
     <div className="flex flex-col sm:flex-row gap-px bg-black dark:bg-white border border-black dark:border-white">
       {days.map((day) => {
-        const presentPersons = presences
+        const dayPresences = presences
           .filter((p) => p.date === day.date)
-          .map((p) => p.person)
+          .map((p) => ({ person: p.person, withDog: p.withDog }))
 
         return (
           <DayCard
             key={day.date}
             day={day}
-            presentPersons={presentPersons}
+            presences={dayPresences}
             currentPerson={currentPerson}
             colorMap={colorMap}
           />
